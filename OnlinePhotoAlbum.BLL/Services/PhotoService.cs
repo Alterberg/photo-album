@@ -83,11 +83,14 @@ namespace OnlinePhotoAlbum.BLL.Services
 
         public void Add(PhotoDTO photoDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PhotoDTO, Photo>()).CreateMapper();
-            Photo photo = mapper.Map<PhotoDTO, Photo>(photoDto);
+            if (photoDto != null)
+            {
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PhotoDTO, Photo>()).CreateMapper();
+                Photo photo = mapper.Map<PhotoDTO, Photo>(photoDto);
 
-            Database.Photos.Create(photo);
-            Database.Save();
+                Database.Photos.Create(photo);
+                Database.Save();
+            }
         }
 
         public void Dispose()
