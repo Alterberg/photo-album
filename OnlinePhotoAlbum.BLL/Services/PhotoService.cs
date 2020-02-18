@@ -140,6 +140,7 @@ namespace OnlinePhotoAlbum.BLL.Services
                 //    Time = markDto.Time,
                 //    AuthorId = markDto.AuthorId,
                 //};
+
                 Database.Marks.Create(mark);
                 Database.Save();
 
