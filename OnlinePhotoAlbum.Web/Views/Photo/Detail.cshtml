@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNet.Identity
+
+@model OnlinePhotoAlbum.Web.Models.DetailPhotoViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="picture-edit">
+                <img src="@Url.Content(Model.Path)" , class="photo" />
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        @Html.LabelFor(model => model.AuthorUsername)
+                        @Html.DisplayFor(model => model.AuthorUsername)
+                    </p>
+                    <p>
+                        @Html.LabelFor(model => model.Name)
+                        @Html.DisplayFor(model => model.Name)
+                    </p>
+                    <p>
+                        @Html.LabelFor(model => model.Description)
+                        <br />
+                        @Html.DisplayFor(model => model.Description)
+                    </p>
+                    <p>
+                        @Html.LabelFor(model => model.UploadTime)
+                        @Html.DisplayFor(model => model.UploadTime)
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Mark)
+                    @{
+                        if (Model.Mark > 0)
+                        {
+                            @Html.DisplayFor(model => model.Mark) <span>/5</span>
+                        }
+                        else
+                        {
+                            <span>Нет оценок</span>
+                        }
+                    }
+                </div>
+                @if ((User.Identity.IsAuthenticated && User.Identity.GetUserName() != Model.AuthorUsername && !ViewBag.HaveMark) || User.IsInRole("moderator"))
+                {
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("AddMark", "Photo", new { id = Model.Id }, FormMethod.Post))
+                        {
+                            <p>
+                                <select size="1" name="score" required>
+                                    <option selected disabled value="">Leave mark</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </p>
+                            <p><input type="submit" value="Отправить"></p>
+                        }
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        @if ((User.Identity.IsAuthenticated && User.Identity.GetUserName() == Model.AuthorUsername) || User.IsInRole("moderator"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) <span> | </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-danger" }) <span> | </span>
+                        }
+
+                        @*@Html.ActionLink("Back to List", "@ViewBag.returnUrl")*@
+                        <a href=@ViewBag.returnUrl>Back to List</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

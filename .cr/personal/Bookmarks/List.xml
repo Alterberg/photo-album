@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root Type="DevExpress.CodeRush.Foundation.Markers.SolutionBookmarksContainer">
+  <Options Language="Neutral">
+    <Items>
+      <Item Id="{2df7c9e0-68a4-4875-9286-3d31fb942825}">
+        <Id>1</Id>
+        <File>OnlinePhotoAlbum\OnlinePhotoAlbum.BLL\Services\UserService.cs</File>
+        <Line>51</Line>
+        <Character>9</Character>
+        <ViewportTop>37</ViewportTop>
+        <ViewportTopMax>67</ViewportTopMax>
+        <TopLine>37</TopLine>
+      </Item>
+    </Items>
+  </Options>
+</Root>

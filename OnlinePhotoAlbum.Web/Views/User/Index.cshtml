@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OnlinePhotoAlbum.Web.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <p>
+        @Html.ActionLink("Add User", "Register", "Account", null, htmlAttributes: new { @class = "btn btn-primary pull-right" })
+    </p>
+</div>
+
+<div class="container">
+    <div class="row-panel">
+        <div class="col-md-3">
+            <div>
+                @using (Ajax.BeginForm("SelectData", new AjaxOptions
+                {
+                    UpdateTargetId = "results",
+                    LoadingElementId = "loading",
+                    LoadingElementDuration = 1000
+                }))
+                {
+                    <p>
+                        Username<br />
+                        <input type="text" name="selUsername" />
+                    </p>
+                    <p>
+                        Role <br />
+                        @Html.DropDownList("selRoleName", ViewBag.SelRoleName as SelectList)
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Search" />
+                    </p>
+
+                    <div id="loading" class="load" style="display: none">
+                        <p>Data loading...</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-9">
+            <br />
+            <div id="results">
+                @Html.Partial("_UserTable", Model)
+            </div>
+        </div>
+    </div>
+</div>
+@*<div>
+    @using (Ajax.BeginForm("UserSearch", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <input type="text" name="username" />
+        <input type="submit" value="Поиск" />
+    }
+    <br />
+
+</div>*@
+
+

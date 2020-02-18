@@ -1,0 +1,37 @@
+﻿@model OnlinePhotoAlbum.Web.Models.PhotoPageViewModel
+@using OnlinePhotoAlbum.Web.Helpers
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Photo Album</h1>
+    <p class="lead">Photo Album is online service were you can store best moments of your life!</p>
+    <p>@Html.ActionLink("Getting started", "Register", "Account")</p>
+
+    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+</div>
+
+<div class="container">
+    @*@using (Ajax.BeginForm("PhotoSearch", new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            <input type="text" name="name" />
+            <input type="submit" value="Поиск" />
+        }*@
+    <h2>Best rated photos:</h2>
+    <div class="row">
+        @using (Ajax.BeginForm("_PhotoPartialView", null, new AjaxOptions { UpdateTargetId = "results" }, htmlAttributes: new { @class = "pull-right" }))
+        {
+            <span>Items per page:</span>
+            @Html.DropDownList("selPageSize", ViewBag.SelPageSize as SelectList)
+            <input type="submit" value="Submit" />
+        }
+    </div>
+    <div id="results">
+       @Html.Partial("_PhotoPartialView", Model)
+    </div>
+    @*<div class="btn-group">
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    </div>*@
+</div>

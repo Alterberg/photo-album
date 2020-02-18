@@ -1,0 +1,106 @@
+﻿@*@model IEnumerable<OnlinePhotoAlbum.Web.Models.IndexPhotoViewModel>*@
+@model OnlinePhotoAlbum.Web.Models.PhotoPageViewModel
+
+<h2>@ViewBag.Title</h2>
+<br />
+<div class="container">
+    @*@using (Ajax.BeginForm("PhotoSearch", new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            <input type="text" name="name" />
+            <input type="submit" value="Поиск" />
+        }
+        <br />*@
+    @using (Ajax.BeginForm("_PhotoPartialView", new AjaxOptions
+    {
+        UpdateTargetId = "results",
+        LoadingElementId = "loading",
+        LoadingElementDuration = 1000
+    }))
+    {
+        <div class="row">
+
+            <div class="col-md-3">
+                <p>
+                    Photo name:<br />
+                    <input type="text" name="selPhotoName" />
+                </p>
+                <p>
+                    Username:<br />
+                    <input type="text" name="selUsername" />
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p>
+                    Mark from <br />
+                    <input type="text" name="markFrom" />
+                </p>
+                <p>
+                    Mark to <br />
+                    <input type="text" name="markTo" />
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </p>
+            </div>
+            <div class="col-md-3">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <p>
+                        @Html.ActionLink("Add Photo", "Create", null, htmlAttributes: new { @class = "btn btn-primary pull-right" })
+                    </p>
+                }
+            </div>
+
+            <div id="loading" class="load" style="display: none">
+                <p>Data loading...</p>
+            </div>
+
+            <br />
+        </div>
+        <div class="row">
+            <div class="pull-right">
+                <span>Items per page:</span>
+                @Html.DropDownList("selPageSize", ViewBag.SelPageSize as SelectList)
+                <input type="submit" value="Submit" />
+            </div>
+            
+            @*@using (Ajax.BeginForm("_PhotoPartialView", null, new AjaxOptions { UpdateTargetId = "results" }, htmlAttributes: new { @class = "pull-right" }))
+            {
+                <span>Items per page:</span>
+                @Html.DropDownList("selPageSize", ViewBag.SelPageSize as SelectList)
+                <input type="submit" value="Submit" />
+            }*@
+        </div>
+    }
+
+    <div id="results" class="row">
+        @Html.Partial("_PhotoPartialView", Model)
+        @*@foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4">
+                    <br />
+
+                    <div class="thumbnail">
+                        <a href="~/Photo/Detail/@item.Id">
+                            <div class="picture">
+                                <img src="@Url.Content(item.Path)" , class="photo">
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="caption">
+                        <div class="pull-left">
+                            @Html.ActionLink("View", "Detail", "Photo", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                        </div>
+                        <div class="pull-right">
+                            <div id="markScore" class="text-right"><span class="glyphicon glyphicon-star"></span> @item.Mark/5</div>
+                            @item.AuthorUsername
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            }*@
+    </div>
+</div>

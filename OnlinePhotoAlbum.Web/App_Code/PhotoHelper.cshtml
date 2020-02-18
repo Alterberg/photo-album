@@ -1,0 +1,22 @@
+﻿@*@helper GetMark(OnlinePhotoAlbum.Web.Models.Photo photo)
+{
+    int sum = 0;
+    int count = 0;
+
+    foreach (var mark in photo.Marks)
+    {
+        sum += (int)mark.Score;
+        count++;
+    }
+    if (count > 0)
+    {
+        decimal m = (decimal)sum / count;
+        <p>@Math.Round(m, 2)<span>/5</span></p>
+}
+else
+{
+<p>No marks</p>
+}
+
+
+}*@

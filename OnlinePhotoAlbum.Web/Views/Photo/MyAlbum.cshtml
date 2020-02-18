@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OnlinePhotoAlbum.Web.Models.IndexPhotoViewModel>
+
+@{ 
+    ViewBag.RefAction = "MyAlbum";
+}
+
+<h2>My Photos:</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Add Photo", "Create", null, htmlAttributes: new { @class = "btn btn-primary pull-right" })
+    </p>
+}
+
+<br />
+<div class="container">
+    <div id="results" class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <br />
+
+                <div class="thumbnail">
+                    <a href="~/Photo/Detail/@item.Id">
+                        <div class="picture">
+                            <img src="@Url.Content(item.Path)" , class="photo">
+                        </div>
+                    </a>
+                </div>
+
+                <div class="caption">
+                    <div class="pull-left">
+                        @Html.ActionLink("View", "Detail", "Photo", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                    </div>
+                    <div class="pull-right">
+                        <div id="markScore" class="text-right"><span class="glyphicon glyphicon-star"></span> @item.Mark/5</div>
+                        @item.AuthorUsername
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+</div>

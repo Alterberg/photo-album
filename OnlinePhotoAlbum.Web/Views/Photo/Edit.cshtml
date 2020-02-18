@@ -1,0 +1,47 @@
+﻿@model OnlinePhotoAlbum.Web.Models.EditPhotoViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit photo №@Model.Id</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="picture-edit">
+                <img src="@Url.Content(Model.Path)" , class="photo" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm("Edit", "Photo", FormMethod.Post))
+            {
+                
+                <fieldset>
+                    @Html.ValidationSummary(true, "1 or more fields are incorrect", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.AuthorId)
+                    @Html.HiddenFor(m => m.UploadTime)
+                    @Html.HiddenFor(m => m.Path)
+                    <p>
+                        @Html.LabelFor(m => m.Name, "Photo name")
+                        @Html.EditorFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.Description, "Description") <br />
+                        @Html.EditorFor(m => m.Description)
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </p>
+                    <p>
+
+                        <input type="submit" value="Save" class="btn btn-primary" /> |
+                        @*@Html.ActionLink("Cancel", "Detail", new { id = Model.Id }, htmlAttributes: new { @class = "btn" })*@
+                        <a href="javascript:history.go(-1);" class="btn btn-default">Cancel</a>
+                    </p>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+

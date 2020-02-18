@@ -1,0 +1,35 @@
+﻿@model OnlinePhotoAlbum.Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit User @Model.Username</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Password)
+        @Html.HiddenFor(m => m.RegDate)
+        @Html.HiddenFor(m => m.Username)
+        <p>
+            @Html.LabelFor(m => m.Name)
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Role)
+            @Html.DropDownList("selRoleName", ViewBag.SelRoleName as SelectList)
+            @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+        </p>
+        <p>
+
+            <input type="submit" value="Save" class="btn btn-primary" /> |
+            @*@Html.ActionLink("Cancel", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "btn" })*@
+            <a href="javascript:history.go(-1);" class="btn btn-default">Cancel</a>
+        </p>
+    </fieldset>
+}
+

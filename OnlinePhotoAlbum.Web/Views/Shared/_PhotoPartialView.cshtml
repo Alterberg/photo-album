@@ -1,0 +1,35 @@
+﻿@model OnlinePhotoAlbum.Web.Models.PhotoPageViewModel
+@using OnlinePhotoAlbum.Web.Helpers
+
+<div class="row">
+    @foreach (var item in Model.Photos)
+    {
+        <div class="col-sm-6 col-md-4">
+            <br />
+
+            <div class="thumbnail">
+                <a href="~/Photo/Detail/@item.Id">
+                    <div class="picture">
+                        <img src="@Url.Content(item.Path)" , class="photo">
+                    </div>
+                </a>
+            </div>
+
+            <div class="caption">
+                <div class="pull-left">
+                    @Html.ActionLink("View", "Detail", "Photo", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                </div>
+                <div class="pull-right">
+                    <div id="markScore" class="text-right"><span class="glyphicon glyphicon-star"></span> @item.Mark/5</div>
+                    @item.AuthorUsername
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", 
+    new { page = x, selPageSize = ViewBag.PageSize, selPhotoName = ViewBag.PhotoName, selUsername = ViewBag.Username, markFrom = ViewBag.From, markTo = ViewBag.To}))
+</div>
