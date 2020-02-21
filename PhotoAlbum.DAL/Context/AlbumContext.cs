@@ -12,7 +12,7 @@ namespace OnlinePhotoAlbum.DAL.Context
     {
         static AlbumContext()
         {
-            Database.SetInitializer<AlbumContext>(new DbInitializer<AlbumContext>());
+            //Database.SetInitializer<AlbumContext>(new DbInitializer<AlbumContext>());
         }
 
         public AlbumContext()
@@ -26,7 +26,6 @@ namespace OnlinePhotoAlbum.DAL.Context
         public DbSet<Photo> Photos { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Mark> Marks { get; set; }
-        //public DbSet<Role> Roles { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,7 +35,7 @@ namespace OnlinePhotoAlbum.DAL.Context
 
             modelBuilder.Entity<UserProfile>()
             .HasMany(e => e.Photos)
-            .WithOptional(e => e.Author)//WithRequired
+            .WithOptional(e => e.Author)
             .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<UserProfile>()

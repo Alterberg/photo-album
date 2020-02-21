@@ -40,9 +40,7 @@ namespace OnlinePhotoAlbum.BLL.Services
                 var result = await Database.UserManager.CreateAsync(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-                // добавляем роль
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
-                // создаем профиль клиента
                 UserProfile clientProfile = new UserProfile { Id = user.Id, Name = userDto.Name, UserName = userDto.UserName, RegDate = userDto.RegDate };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
@@ -57,16 +55,13 @@ namespace OnlinePhotoAlbum.BLL.Services
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
-            // находим пользователя
             ApplicationUser user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
-            // авторизуем его и возвращаем объект ClaimsIdentity
             if (user != null)
                 claim = await Database.UserManager.CreateIdentityAsync(user,
                                             DefaultAuthenticationTypes.ApplicationCookie);
             return claim;
         }
 
-        // начальная инициализация бд
         public async Task SetInitialData(UserDTO adminDto, List<string> roles)
         {
             foreach (string roleName in roles)
@@ -95,15 +90,12 @@ namespace OnlinePhotoAlbum.BLL.Services
                 Role = Database.UserManager.GetRoles(user.Id).FirstOrDefault(),
                 Name = user.Name,
                 UserName = user.UserName,
-                //Password = user.Password,
                 RegDate = user.RegDate
             };
         }
 
         public IEnumerable<UserDTO> GetAll()
         {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserProfile, UserDTO>()).CreateMapper();
-            //return mapper.Map<IEnumerable<UserProfile>, List<UserDTO>>(Database.Users.GetAll());
 
             var users = Database.Users.GetAll().ToList();
             IList<UserDTO> userDtos = new List<UserDTO>();
@@ -188,7 +180,6 @@ namespace OnlinePhotoAlbum.BLL.Services
 
         public IEnumerable<UserDTO> SearchByUsername(IEnumerable<UserDTO> users, string username)
         {
-            //return users.Where(u => u.UserName.ToLower().Contains(username.ToLower()));
             return SearchAllByUsername(username);
         }
 

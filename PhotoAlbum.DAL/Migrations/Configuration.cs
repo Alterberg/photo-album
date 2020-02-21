@@ -14,7 +14,8 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(OnlinePhotoAlbum.DAL.Context.AlbumContext db)
@@ -25,14 +26,6 @@
 
             string[] roles = new string[] { "user", "admin", "moderator" };
 
-            //foreach (string role in roles)
-            //{
-            //    if (!db.Roles.Any(r => r.Name == role))
-            //    {
-            //        db.Roles.Add(new IdentityRole(role));
-            //    }
-            //}
-
             foreach (string role in roles)
             {
                 if (!roleManager.RoleExists(role))
@@ -41,38 +34,35 @@
                 }
             }
 
-            ApplicationUser user = new ApplicationUser
+            ApplicationUser admin = new ApplicationUser
             {
                 Email = "admin@gmail.com",
                 UserName = "admin",
                 PasswordHash = userManager.PasswordHasher.HashPassword("adminadmin"),
             };
-            userManager.Create(user);
-            // добавляем роль
-            userManager.AddToRole(user.Id, "admin");
-            // создаем профиль клиента
-            UserProfile clientProfile = new UserProfile { Id = user.Id, Name = "admin", UserName = user.UserName, RegDate = DateTime.Now };
-            clientManager.Create(clientProfile);
+            userManager.Create(admin);
+            userManager.AddToRole(admin.Id, "admin");
+            UserProfile adminProfile = new UserProfile { Id = admin.Id, Name = "admin", UserName = admin.UserName, RegDate = DateTime.Now };
+            clientManager.Create(adminProfile);
             db.SaveChanges();
 
-            //var users = new UserProfile[]
-            //{
-            //    new UserProfile { Name = "Vasia"/*, RoleId = roles.Single( i => i.Name == "User").Id*/, UserName = "Vasia1", RegDate = DateTime.Now },
-            //    new UserProfile { Name = "Misha"/*, RoleId = roles.Single( i => i.Name == "User").Id*/, UserName = "Misha2", RegDate = DateTime.Now },
-            //    new UserProfile { Name = "Stepka"/*, RoleId = roles.Single( i => i.Name == "Admin").Id*/, UserName = "Stepka3", RegDate = DateTime.Now }
-            //};
-
-            //foreach (UserProfile u in users)
-            //{
-            //    db.UserProfiles.Add(u);
-            //}
-            //db.SaveChanges();
+            ApplicationUser user = new ApplicationUser
+            {
+                Email = "user@gmail.com",
+                UserName = "user",
+                PasswordHash = userManager.PasswordHasher.HashPassword("useruser"),
+            };
+            userManager.Create(user);
+            userManager.AddToRole(user.Id, "user");
+            UserProfile userProfile = new UserProfile { Id = user.Id, Name = "admin", UserName = user.UserName, RegDate = DateTime.Now };
+            clientManager.Create(userProfile);
+            db.SaveChanges();
 
             var photos = new Photo[]
             {
-                new Photo { Name = "NokiaIMG", /*AuthorId = users.Single( i => i.UserName == "Vasia1").Id,*/ Description = "NokiaIMG description", Path = "/Files/NokiaIMG.jpg", UploadTime = DateTime.Now },
-                new Photo { Name = "HuaweiIMG", /*AuthorId = users.Single( i => i.UserName == "Misha2").Id,*/ Description = "HuaweiIMG description", Path = "/Files/HuaweiIMG.jpg", UploadTime = DateTime.Now },
-                new Photo { Name = "IphoneIMG", /*AuthorId = users.Single( i => i.UserName == "Stepka3").Id,*/ Description = "IphoneIMG description", Path = "/Files/IphoneIMG.jpg", UploadTime = DateTime.Now }
+                new Photo { Name = "NokiaIMG", AuthorId = admin.Id, Description = "NokiaIMG description", Path = "/Files/NokiaIMG.jpg", UploadTime = DateTime.Now },
+                new Photo { Name = "HuaweiIMG", AuthorId = admin.Id, Description = "HuaweiIMG description", Path = "/Files/HuaweiIMG.jpg", UploadTime = DateTime.Now },
+                new Photo { Name = "IphoneIMG", AuthorId = admin.Id, Description = "IphoneIMG description", Path = "/Files/IphoneIMG.jpg", UploadTime = DateTime.Now }
             };
 
             foreach (Photo p in photos)
@@ -84,10 +74,10 @@
 
             var marks = new Mark[]
             {
-                new Mark { /*AuthorId = users.Single( i => i.UserName == "Vasia1").Id,*/ PictureId = photos.Single( i => i.Name == "HuaweiIMG").Id, Score = 5, Time = DateTime.Now },
-                new Mark { /*AuthorId = users.Single( i => i.UserName == "Misha2").Id,*/ PictureId = photos.Single( i => i.Name == "IphoneIMG").Id, Score = 4, Time = DateTime.Now },
-                new Mark { /*AuthorId = users.Single( i => i.UserName == "Stepka3").Id,*/ PictureId = photos.Single( i => i.Name == "NokiaIMG").Id, Score = 3, Time = DateTime.Now },
-                new Mark { /*AuthorId = users.Single( i => i.UserName == "Vasia1").Id,*/ PictureId = photos.Single( i => i.Name == "IphoneIMG").Id, Score = 5, Time = DateTime.Now }
+                new Mark { AuthorId = user.Id, PictureId = photos.Single( i => i.Name == "HuaweiIMG").Id, Score = 5, Time = DateTime.Now },
+                new Mark { AuthorId = user.Id, PictureId = photos.Single( i => i.Name == "IphoneIMG").Id, Score = 4, Time = DateTime.Now },
+                new Mark { AuthorId = user.Id, PictureId = photos.Single( i => i.Name == "NokiaIMG").Id, Score = 3, Time = DateTime.Now },
+                new Mark { AuthorId = user.Id, PictureId = photos.Single( i => i.Name == "IphoneIMG").Id, Score = 5, Time = DateTime.Now }
             };
 
             foreach (Mark m in marks)

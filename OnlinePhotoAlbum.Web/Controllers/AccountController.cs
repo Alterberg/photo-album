@@ -40,7 +40,6 @@ namespace OnlinePhotoAlbum.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            //await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO { UserName = model.UserName, Password = model.Password };
@@ -77,7 +76,6 @@ namespace OnlinePhotoAlbum.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            //await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO
@@ -97,17 +95,17 @@ namespace OnlinePhotoAlbum.Web.Controllers
             }
             return View(model);
         }
-        private async Task SetInitialDataAsync()
-        {
-            await UserService.SetInitialData(new UserDTO
-            {
-                Email = "admin@gmail.com",
-                UserName = "admin",
-                Password = "adminadmin",
-                Name = "admin",
-                Role = "admin",
-                RegDate = DateTime.Now
-            }, new List<string> { "user", "admin", "moderator" });
-        }
+        //private async Task SetInitialDataAsync()
+        //{
+        //    await UserService.SetInitialData(new UserDTO
+        //    {
+        //        Email = "admin@gmail.com",
+        //        UserName = "admin",
+        //        Password = "adminadmin",
+        //        Name = "admin",
+        //        Role = "admin",
+        //        RegDate = DateTime.Now
+        //    }, new List<string> { "user", "admin", "moderator" });
+        //}
     }
 }

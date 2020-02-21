@@ -8,10 +8,9 @@
 
 @using (Html.BeginForm("Edit", "User", FormMethod.Post))
 {
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <fieldset>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(m => m.Id)
-        @Html.HiddenFor(m => m.Password)
         @Html.HiddenFor(m => m.RegDate)
         @Html.HiddenFor(m => m.Username)
         <p>

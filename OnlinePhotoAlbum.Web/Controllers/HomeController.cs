@@ -7,17 +7,14 @@ using System.Web.Mvc;
 using AutoMapper;
 using OnlinePhotoAlbum.BLL.DTO;
 using OnlinePhotoAlbum.BLL.Interfaces;
-//using OnlinePhotoAlbum.BLL;
 using OnlinePhotoAlbum.BLL.Services;
 using OnlinePhotoAlbum.Web.Models;
-//using OnlinePhotoAlbum.DAL.Models;
 
 
 namespace OnlinePhotoAlbum.Web.Controllers
 {
     public class HomeController : Controller
     {
-        //static DbUoW context = new DbUoW();
         IPhotoService photoService;
 
         public HomeController(IPhotoService photoService)
@@ -29,7 +26,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
         {
             ViewBag.PageSize = selPageSize;
 
-            int pageSize = int.Parse(selPageSize); // количество объектов на страницу
+            int pageSize = int.Parse(selPageSize);
             IEnumerable<PhotoDTO> photoDtos = photoService.GetAll().OrderByDescending(p => p.Mark);
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PhotoDTO, IndexPhotoViewModel>()).CreateMapper();
@@ -47,7 +44,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
         {
             ViewBag.PageSize = selPageSize;
 
-            int pageSize = int.Parse(selPageSize); // количество объектов на страницу
+            int pageSize = int.Parse(selPageSize);
             IEnumerable<PhotoDTO> photoDtos = photoService.GetAll().OrderByDescending(p => p.Mark);
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PhotoDTO, IndexPhotoViewModel>()).CreateMapper();

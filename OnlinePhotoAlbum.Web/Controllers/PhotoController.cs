@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//using OnlinePhotoAlbum.BLL;
 using OnlinePhotoAlbum.BLL.DTO;
 using OnlinePhotoAlbum.BLL.Services;
 using OnlinePhotoAlbum.BLL.Interfaces;
@@ -19,25 +18,14 @@ namespace OnlinePhotoAlbum.Web.Controllers
 {
     public class PhotoController : Controller
     {
-        //DbUoW context = new DbUoW();
-        IPhotoService photoService;
-        IUserService userService;
+        readonly IPhotoService photoService;
+        readonly IUserService userService;
         
         public PhotoController(IPhotoService photoService, IUserService userService)
         {
             this.photoService = photoService;
             this.userService = userService;
         }
-
-        // GET: Photo
-        //public ActionResult Index()
-        //{
-        //    ViewBag.Title = "Last added photos:";
-        //    IEnumerable<PhotoDTO> photoDtos = photoService.GetAll().OrderByDescending(p => p.UploadTime);
-        //    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<PhotoDTO, IndexPhotoViewModel>()).CreateMapper();
-        //    var photos = mapper.Map<IEnumerable<PhotoDTO>, List<IndexPhotoViewModel>>(photoDtos);
-        //    return View(photos);
-        //}
 
         public ActionResult Index(string selPhotoName, string selUsername, double? markFrom, double? markTo, int page = 1, string selPageSize = "3")
         {
@@ -48,7 +36,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
             ViewBag.From = markFrom;
             ViewBag.To = markTo;
 
-            int pageSize = int.Parse(selPageSize); // количество объектов на страницу
+            int pageSize = int.Parse(selPageSize); 
             IEnumerable<PhotoDTO> photoDtos = photoService.GetAll().OrderByDescending(p => p.UploadTime);
 
             if (!string.IsNullOrWhiteSpace(selPhotoName))
@@ -79,7 +67,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
             ViewBag.From = markFrom;
             ViewBag.To = markTo;
 
-            int pageSize = int.Parse(selPageSize); // количество объектов на страницу
+            int pageSize = int.Parse(selPageSize);
             IEnumerable<PhotoDTO> photoDtos = photoService.GetAll().OrderByDescending(p => p.UploadTime);
 
             if (!string.IsNullOrWhiteSpace(selPhotoName))
@@ -145,11 +133,10 @@ namespace OnlinePhotoAlbum.Web.Controllers
         [HttpPost]
         public ActionResult Create(DetailPhotoViewModel pic, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid && uploadImage != null)
+            if (ModelState.IsValid && uploadImage != null && uploadImage.ContentLength <= 2000000 && uploadImage.ContentType.Contains("image"))
             {
-                // получаем имя файла
                 string fileName = System.IO.Path.GetFileName(uploadImage.FileName);
-                // сохраняем файл в папку Files в проекте
+
                 uploadImage.SaveAs(Server.MapPath("~/Files/" + fileName));
 
                 PhotoDTO photo = new PhotoDTO { Description = pic.Description, Name = fileName, UploadTime = DateTime.Now, 
@@ -158,7 +145,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(pic);
+            return View("Error");
         }
 
         [Authorize]
@@ -296,7 +283,6 @@ namespace OnlinePhotoAlbum.Web.Controllers
             catch (ValidationException ex)
             {
                 return Content(ex.Message);
-                //return RedirectToAction("Index");
             }
 
             ViewBag.returnUrl = Request.UrlReferrer;

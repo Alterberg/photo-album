@@ -78,7 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
-    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\PhotoRepository.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

@@ -12,7 +12,6 @@ G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\bin\
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
-G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\obj\Debug\OnlinePhotoAlbum.DAL.csprojAssemblyReference.cache
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\obj\Debug\PhotoAlbum.DAL.Migrations.InitialCreate.resources
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\obj\Debug\OnlinePhotoAlbum.DAL.csproj.GenerateResource.cache
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\OnlinePhotoAlbum.DAL\bin\Debug\PhotoAlbum.DAL.dll.config
@@ -31,3 +30,4 @@ G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\OnlinePhotoAlbum.DA
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\OnlinePhotoAlbum.DAL\obj\Debug\OnlinePhotoAlbum.DAL.csproj.CopyComplete
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\OnlinePhotoAlbum.DAL\obj\Debug\PhotoAlbum.DAL.dll
 G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\OnlinePhotoAlbum.DAL\obj\Debug\PhotoAlbum.DAL.pdb
+G:\Изуччение C#\epam\Final Project\OnlinePhotoAlbum\PhotoAlbum.DAL\obj\Debug\OnlinePhotoAlbum.DAL.csprojAssemblyReference.cache

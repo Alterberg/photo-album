@@ -15,7 +15,6 @@ namespace OnlinePhotoAlbum.DAL.Interfaces
         IUserReposiroty<UserProfile> Users { get; }
         IRepository<Photo> Photos { get; }
         IRepository<Mark> Marks { get; }
-        //IRepository<Role> Roles { get; }
         ApplicationUserManager UserManager { get; }
         IClientManager ClientManager { get; }
         ApplicationRoleManager RoleManager { get; }

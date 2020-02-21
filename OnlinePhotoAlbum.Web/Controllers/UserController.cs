@@ -14,7 +14,6 @@ namespace OnlinePhotoAlbum.Web.Controllers
 {
     public class UserController : Controller
     {
-        //AlbumContext db = new AlbumContext();
         IUserService userService;
 
         public UserController(IUserService userService)
@@ -22,11 +21,8 @@ namespace OnlinePhotoAlbum.Web.Controllers
             this.userService = userService;
         }
 
-        
-        // GET: User
         public ActionResult Index()
         {
-            //var users = db.Users.ToList();
             IEnumerable<UserDTO> userDtos = userService.GetAll();
             if (userDtos.Count() <= 0)
             {
@@ -108,11 +104,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
             UserViewModel userView = mapper.Map<UserDTO, UserViewModel>(userDto);
 
-            List<SelectListItem> roles = CreateRoleNamesSelectList();
-
-            roles.RemoveAt(0);
-
-            ViewBag.SelRoleName = roles;
+            ViewBag.SelRoleName = new SelectList(userService.GetRoles(), userDto.Role.ToString());
 
             return View(userView);
         }
@@ -136,7 +128,7 @@ namespace OnlinePhotoAlbum.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            else return View(userView);
+            else return Content("The form was filled out with errors");
         }
 
         [Authorize]

@@ -13,9 +13,7 @@ namespace UserStore.App_Start
 {
     public class Startup
     {
-        private readonly IServiceCreator serviceCreator; // = new ServiceCreator();
-        //[Inject]
-        //public IUserService userService 
+        private readonly IServiceCreator serviceCreator; 
 
         public Startup()
         {
@@ -34,12 +32,5 @@ namespace UserStore.App_Start
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
         }
-
-        //private IUserService CreateUserService()
-        //{
-        //    return serviceCreator.CreateUserService("AlbumConnection");
-        //}
-
-
     }
 }

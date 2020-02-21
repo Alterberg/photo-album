@@ -44,8 +44,6 @@ namespace OnlinePhotoAlbum.BLL.Services
 
         public IEnumerable<PhotoDTO> GetAll()
         {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Photo, PhotoDTO>()).CreateMapper();
-            //return mapper.Map<IEnumerable<Photo>, List<PhotoDTO>>(Database.Photos.GetAll());
             var photos = Database.Photos.GetAll().ToList();
             IList<PhotoDTO> photoDtos = new List<PhotoDTO>();
 
@@ -133,13 +131,6 @@ namespace OnlinePhotoAlbum.BLL.Services
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<MarkDTO, Mark>()).CreateMapper();
                 Mark mark = mapper.Map<MarkDTO, Mark>(markDto);
-                //Mark mark = new Mark
-                //{
-                //    Picture = photo,
-                //    Score = markDto.Score,
-                //    Time = markDto.Time,
-                //    AuthorId = markDto.AuthorId,
-                //};
 
                 Database.Marks.Create(mark);
                 Database.Save();

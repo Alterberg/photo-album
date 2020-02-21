@@ -19,7 +19,6 @@ namespace OnlinePhotoAlbum.DAL.Repositories
         private PhotoRepository photoRepository;
         private UserRepository userRepository;
         private MarkRepository markRepository;
-        //private RoleRepository roleRepository;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private IClientManager clientManager;
@@ -27,7 +26,6 @@ namespace OnlinePhotoAlbum.DAL.Repositories
         public EFUnitOfWork(string connectionString)
         {
             db = new AlbumContext(connectionString);
-            //Переделать под if (photoRepository == null)
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
             clientManager = new ClientManager(db);
@@ -62,16 +60,6 @@ namespace OnlinePhotoAlbum.DAL.Repositories
                 return markRepository;
             }
         }
-
-        //public IRepository<Role> Roles
-        //{
-        //    get
-        //    {
-        //        if (roleRepository == null)
-        //            roleRepository = new RoleRepository(db);
-        //        return roleRepository;
-        //    }
-        //}
 
         public ApplicationUserManager UserManager
         {

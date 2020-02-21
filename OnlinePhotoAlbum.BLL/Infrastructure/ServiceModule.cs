@@ -20,7 +20,6 @@ namespace OnlinePhotoAlbum.BLL.Infrastructure
         {
             Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument(connectionString);
             Bind<IClientManager>().To<ClientManager>().WithConstructorArgument(connectionString);
-            //Bind<IUnitOfWork>().To<EFUnitOfWork>();
         }
     }
 }
